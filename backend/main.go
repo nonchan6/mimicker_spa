@@ -10,6 +10,11 @@ type Tag struct {
 	Name string `json:"name"`
 }
 
+type Post struct {
+	Id  int    `json:"id"`
+	Url string `json:"url"`
+}
+
 func main() {
 	//ハンドラー関数定義
 	h1 := func(w http.ResponseWriter, _ *http.Request) {
