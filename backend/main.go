@@ -5,21 +5,25 @@ import (
 	"net/http"
 )
 
-type Tag struct {
-	Id   int    `json:"id"`
+type tag struct {
+	ID   string `json:"id"`
 	Name string `json:"name"`
 }
 
-type Post struct {
-	Id  int    `json:"id"`
+type post struct {
+	ID  string `json:"id"`
 	Url string `json:"url"`
+}
+
+var posts = []post{
+	{ID: "1", Url: "https://test"},
 }
 
 func main() {
 	//ハンドラー関数定義
-	h1 := func(w http.ResponseWriter, _ *http.Request) {
+	getPosts := func(w http.ResponseWriter, _ *http.Request) {
 		// wにHello from h1!と書き込んでる
-		fmt.Fprint(w, "Hello from h1!\n")
+		fmt.Fprint(w, posts)
 	}
 	h2 := func(w http.ResponseWriter, _ *http.Request) {
 		// wにHello from h2!と書き込んでる
@@ -27,7 +31,7 @@ func main() {
 	}
 
 	// パスとハンドラー結びつける
-	http.HandleFunc("/", h1)
+	http.HandleFunc("/", getPosts)
 	http.HandleFunc("/h2", h2)
 
 	// webサーバーを起動
