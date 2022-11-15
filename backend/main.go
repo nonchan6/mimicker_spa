@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"net/http"
 )
@@ -15,8 +16,18 @@ type post struct {
 	Url string `json:"url"`
 }
 
-var posts = []post{
-	{ID: "1", Url: "https://test"},
+// var posts = []post{
+// 	{ID: "1", Url: "https://test"},
+// }
+
+func initDB(db *sql.DB) error {
+	const sql = `
+        CREATE TABLE IF NOT EXISTS posts (
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            url TEXT NOT NULL
+        );`
+	_, err := db.Exec(sql)
+	return err
 }
 
 func main() {
