@@ -1,1 +1,14 @@
 version: '3'
+services:
+  db-go-database-sql:
+    image: mysql:${IMAGE_VERSION}
+    container_name: db-go-database-sql
+    ports:
+      - "${PORTS}:3306"
+    volumes:
+      - ./data/db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE}
+      MYSQL_USER: ${USER}
+      MYSQL_PASSWORD: ${PASSWORD}
